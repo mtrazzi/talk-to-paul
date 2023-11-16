@@ -38,8 +38,7 @@ with jsonlines.open("data/paulfchristianolw.jsonl", "r") as reader:
 with open('data/paulfchristiano.txt', 'w') as f:
     for post in l:
         for thread in post:
-            for message in post:
-                for sub_mess in message:
-                    f.write(f"{sub_mess}\n")
-            f.write('\n')
-        f.write("\n\n")
+            for message in thread:
+                f.write(f"{message}<eom>")
+            f.write('<eot>')
+        f.write('<eop>')
