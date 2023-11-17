@@ -5,3 +5,5 @@ raw text file from the following websites, with some formatting to remove titles
 * [axrp](https://axrp.net/episode/2021/12/02/episode-12-ai-xrisk-paul-christiano.html)
 
 [paulfchristianolw.jsonl](raw_data/paulfchristianolw.jsonl): just grepped the lines with "paulfchristiano" in them (aka paul commented or wrote a top level post) from the [alignment research dataset](https://github.com/moirage/alignment-research-dataset)
+
+Also contains [processing_lw.py](./processing_lw.py) for how I selected the threads that contained paul's comments and split them into different <eot> (for "end of thread"). 
