@@ -11,4 +11,4 @@ These are concatenations of smaller datasets you can read more about in the [raw
 ## Format
 
 * In [prompt_completion_data](./prompt_completion_data) I have the raw files in a form {"prompt": "...", "completion": "..."} where the prompt is the message before paul christiano says something and the completion is what paul says. This is useful for doing more like instruction finetuning thing, or really training a chatbot. There is no "Paul Christiano:" or "Rob Wiblin:" in this, just directly the text that is being said.
-* In the other files however, the messages inside the "text": "" double quotes are separated by "<eom>" (end of message), and at the end of a podcast or a lesswrong thread I have a <eot> (end of thread) separator.
+* In the other files however, the messages inside the "text": "" double quotes are separated by "<eom>" (end of message), and at the end of a podcast or a lesswrong thread I have a \<eot\> (end of thread) separator.
