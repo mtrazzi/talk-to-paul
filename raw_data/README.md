@@ -6,4 +6,4 @@ raw text file from the following websites, with some formatting to remove titles
 
 [paulfchristianolw.jsonl](raw_data/paulfchristianolw.jsonl): just grepped the lines with "paulfchristiano" in them (aka paul commented or wrote a top level post) from the [alignment research dataset](https://github.com/moirage/alignment-research-dataset)
 
-Also contains [processing_lw.py](./processing_lw.py) for how I selected the threads that contained paul's comments and split them into different <eot> (for "end of thread"). 
+Also contains [processing_lw.py](./processing_lw.py) for how I selected the threads that contained paul's comments and split them into different <eot> (for "end of thread"). Details: Threads on lesswrong start with the post and then go to the last comments where paul interacts, or go from a top-level comment until last paul interaction. Contains repetiions.
