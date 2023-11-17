@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import jsonlines
 from ipdb import set_trace as p
 
@@ -23,11 +24,11 @@ def extract_thread_including_paul_christiano(entry):
                 thread = backup
 
     if 'comments' in entry:
-        extract_comments(entry['comments'])
+        extract_comments(entry['comments'], thread=[f"{entry['authors']}: {entry['text']}"])
 
     return threads
 
-with jsonlines.open("data/paulfchristianolw.jsonl", "r") as reader:
+with jsonlines.open("raw_data/paulfchristianolw.jsonl", "r") as reader:
   l = []
   for entry in reader:
     try:
@@ -35,7 +36,9 @@ with jsonlines.open("data/paulfchristianolw.jsonl", "r") as reader:
     except KeyError:
       pass
 
-with open('data/paulfchristiano.txt', 'w') as f:
+os.makedirs('output', exist_ok=True)
+
+with open('output/lesswrong.txt', 'w') as f:
     for post in l:
         for thread in post:
             for message in thread:
