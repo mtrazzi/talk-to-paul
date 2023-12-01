@@ -12,7 +12,7 @@ from model import GPTConfig, GPT
 init_from = 'resume' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
 out_dir = 'out' # ignored if init_from is not 'resume'
 start = "Paul Christiano: " # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
-num_samples = 10 # number of samples to draw
+num_samples = 5 # number of samples to draw
 max_new_tokens = 500 # number of tokens generated in each sample
 temperature = 0.8 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
 top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
@@ -74,10 +74,11 @@ else:
     decode = lambda l: enc.decode(l)
 
 # encode the beginning of the prompt
-if start.startswith('FILE:'):
-    with open(start[5:], 'r', encoding='utf-8') as f:
-        start = f.read()
-start_ids = encode(start)
+# if start.startswith('FILE:'):
+#     with open(start[5:], 'r', encoding='utf-8') as f:
+#         start = f.read()
+start = input("What do you want to tell Paul?: ")
+start_ids = encode(f'Interviewer: {start}\n\nPaul Christiano: ')
 x = (torch.tensor(start_ids, dtype=torch.long, device=device)[None, ...])
 
 # run generation
@@ -85,5 +86,9 @@ with torch.no_grad():
     with ctx:
         for k in range(num_samples):
             y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
-            print(decode(y[0].tolist()))
+            generated_text = decode(y[0].tolist())
+            if '<|endoftext|>' in generated_text:
+                print(generated_text.split('<|endoftext|>')[0])
+            else:
+                print(generated_text)
             print('---------------')
