@@ -1,10 +1,4 @@
-=== NanoGPT trained directly on paul's dataset. Parameters below ===
-
-eval_interval = 250
-eval_iters = 200
-log_interval = 10
-
-always_save_checkpoint = False
+# NanoGPT trained directly on paul's dataset. Parameters below
 
 dataset = 'paul'
 gradient_accumulation_steps = 1
@@ -23,8 +17,20 @@ min_lr = 1e-4
 beta2 = 0.99
 
 warmup_iters = 100
-====================================================
 
+# Samples
+
+The input was:
+
+```
+Interviewer: Slow takeoff or fast takeoff?
+
+Paul Christiano:  
+```
+
+Outputs (with input prepended):
+
+```
 Interviewer: Slow takeoff or fast takeoff?
 
 Paul Christiano:  Link post
@@ -62,4 +68,4 @@ Interviewer: Slow takeoff or fast takeoff?
 Paul Christiano:  Now, if you’re saying, you’re not convinced that I’d be surprised.
 
 I think that you’re going to pursue this. I know
-That is, you’re not going to get to be like, “Well, I’m sure.” I think that’s a big reason. I think that’s basically right. I think if you’d like, if you’re a very bad AI, some good AI. It’s not a really hard question on that. I think these are very crisp, I think those are quite right. I feel like there’s a whole spectrum between AI systems that get good performance within people who have the right prior. And it’s this basic view. I think the best thing is that we’re likely to be doingomy. And you could think that’s a thing you’re like, yeah, you could go some shit. So, there’s a lot of doominess in that universe, so there’s a whole lot of doom that’s just a ton of doom.
+That is, you’re not going to get to be like, “Well, I’m sure.” I think that’s a big reason. I think that’s basically right. I think if you’d like, if you’re a very bad AI, some good AI. It’s not a really hard question on that. I think these are very crisp, I think those are quite right. I feel like there’s a whole spectrum between AI systems that get good performance within people who have the right prior. And it’s this basic view. I think the best thing is that we’re likely to be doingomy. And you could think that’s a thing you’re like, yeah, you could go some shit. So, there’s a lot of doominess in that universe, so there’s a whole lot of doom that’s just a ton of doom.```
