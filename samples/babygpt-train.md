@@ -1,5 +1,6 @@
 # NanoGPT trained directly on paul's dataset. Parameters below
 
+```
 dataset = 'paul'
 gradient_accumulation_steps = 1
 batch_size = 64
@@ -17,6 +18,11 @@ min_lr = 1e-4
 beta2 = 0.99
 
 warmup_iters = 100
+```
+
+# Training curves
+
+Train & Val losses on [weights and biases](https://api.wandb.ai/links/mtrazzi/vz2roo78)
 
 # Samples
 

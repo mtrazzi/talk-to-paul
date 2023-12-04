@@ -1,5 +1,6 @@
 # gtp2-xl finetuned on the paul dataset
 
+```
 dataset = 'paul'
 init_from = 'gpt2-xl'
 
@@ -10,6 +11,11 @@ max_iters = 2000
 # finetune at constant LR
 learning_rate = 3e-5
 decay_lr = False
+```
+
+# Training curves
+
+Train & Val losses on [weights and biases](https://api.wandb.ai/links/mtrazzi/m76zjqee)
 
 # Samples
 
