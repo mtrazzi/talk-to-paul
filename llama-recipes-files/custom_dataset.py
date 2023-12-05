@@ -9,22 +9,6 @@ import random
 
 TRAIN_SPLIT = 0.8
 
-def tokenize_dialog(text, tokenizer):
-    text = text.replace('<eot>', '').replace('<eop>', '')
-    text_l = text.split('<eom>')[:-1] # nothing after the last <eom>
-
-    input_ids, labels = [], []
-    for text in text_l:
-        no_username = ':'.join(text.split(':')[:1])
-        tokens = tokenizer.encode(f"{tokenizer.bos_token} {no_username.strip()} {tokenizer.eos_token}", add_special_tokens=False)
-        input_ids += tokens
-        labels += tokens if 'Paul Christiano:' in text else [-100] * len(tokens)
-    return {
-        "input_ids": input_ids,
-        "labels": labels,
-        "attention_mask": [1] * len(input_ids)
-    }
-
 def get_custom_dataset(dataset_config, tokenizer, split):
 
     jsonl_path = '/home/talk-to-paul/llama-recipes/examples/15M.jsonl'
@@ -45,8 +29,31 @@ def get_custom_dataset(dataset_config, tokenizer, split):
 
     # Tokenize each dialogue in the dataset
     tokenized_data = []
+    max_length = 2048
+
+
     for record in data:
-        tokenized_dialog = tokenize_dialog(record['text'], tokenizer)
-        tokenized_data.append(tokenized_dialog)
+
+        input_ids, labels = [], []
+        
+        # tokenized_dialog = tokenize_dialog(record['text'], tokenizer)
+        # tokenized_data.append(tokenized_dialog)
+        text = record['text']
+        text = text.replace('<eot>', '').replace('<eop>', '')
+        text_l = text.split('<eom>')[:-1] # nothing after the last <eom>
+
+        for text in text_l:
+
+            tokens = tokenizer.encode(f"{tokenizer.bos_token} {text.strip()} {tokenizer.eos_token}", add_special_tokens=False)
+            input_ids += tokens
+            labels += tokens if 'Paul Christiano:' in text else [-100] * len(tokens)
+
+            if len(input_ids) > max_length:
+                tokenized_data.append({
+                    "input_ids": input_ids,
+                    "labels": labels,
+                    "attention_mask": [1] * len(input_ids)
+                })
+                input_ids, labels = [], []
 
     return tokenized_data
