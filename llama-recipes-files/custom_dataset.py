@@ -29,15 +29,11 @@ def get_custom_dataset(dataset_config, tokenizer, split):
 
     # Tokenize each dialogue in the dataset
     tokenized_data = []
-    max_length = 2048
-
 
     for record in data:
 
         input_ids, labels = [], []
         
-        # tokenized_dialog = tokenize_dialog(record['text'], tokenizer)
-        # tokenized_data.append(tokenized_dialog)
         text = record['text']
         text = text.replace('<eot>', '').replace('<eop>', '')
         text_l = text.split('<eom>')[:-1] # nothing after the last <eom>
@@ -46,14 +42,13 @@ def get_custom_dataset(dataset_config, tokenizer, split):
 
             tokens = tokenizer.encode(f"{tokenizer.bos_token} {text.strip()} {tokenizer.eos_token}", add_special_tokens=False)
             input_ids += tokens
-            labels += tokens if 'Paul Christiano:' in text else [-100] * len(tokens)
+            labels += tokens
+            # labels += tokens if 'Paul Christiano:' in text else [-100] * len(tokens)
 
-            if len(input_ids) > max_length:
-                tokenized_data.append({
-                    "input_ids": input_ids,
-                    "labels": labels,
-                    "attention_mask": [1] * len(input_ids)
-                })
-                input_ids, labels = [], []
+        tokenized_data.append({
+            "input_ids": input_ids,
+            "labels": labels,
+            "attention_mask": [1] * len(input_ids)
+        })
 
     return tokenized_data
