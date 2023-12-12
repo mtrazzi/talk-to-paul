@@ -39,11 +39,9 @@ def get_custom_dataset(dataset_config, tokenizer, split):
         text_l = text.split('<eom>')[:-1] # nothing after the last <eom>
 
         for text in text_l:
-
             tokens = tokenizer.encode(f"{tokenizer.bos_token} {text.strip()} {tokenizer.eos_token}", add_special_tokens=False)
             input_ids += tokens
-            labels += tokens
-            # labels += tokens if 'Paul Christiano:' in text else [-100] * len(tokens)
+            labels += tokens if 'Paul Christiano:' in text else [-100] * len(tokens)
 
         tokenized_data.append({
             "input_ids": input_ids,
